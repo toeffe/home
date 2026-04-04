@@ -927,8 +927,8 @@ document.addEventListener('mousemove', e => {
 // lerp cursor
 function lerp(a, b, t) { return a + (b - a) * t; }
 (function animCursor() {
-  cx = lerp(cx, mx, 0.15);
-  cy = lerp(cy, my, 0.15);
+  cx = mx;
+  cy = my;
   cursor.style.left = cx + 'px';
   cursor.style.top  = cy + 'px';
   requestAnimationFrame(animCursor);
