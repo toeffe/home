@@ -1,0 +1,58 @@
+/* Shared palette + light theme (linked from index.html and music.html) */
+
+:root {
+  color-scheme: dark;
+  --bg: #080808;
+  --bg2: #0f0f0f;
+  --bg3: #141414;
+  --text: #e8e6e0;
+  --muted: #555550;
+  --rule: rgba(232, 230, 224, 0.08);
+  --accent: #00ff88;
+  --accent-dim: rgba(0, 255, 136, 0.12);
+  --accent-glow: rgba(0, 255, 136, 0.06);
+  --curtain-bg: #000000;
+  --nav-scrolled-bg: rgba(8, 8, 8, 0.92);
+  --hero-glyph: #111111;
+  --row-hover-bg: #111111;
+  --outline-border: rgba(232, 230, 224, 0.25);
+  --btn-on-accent: #000000;
+  --tag-border: rgba(232, 230, 224, 0.15);
+  --tag-hover-border: rgba(0, 255, 136, 0.3);
+  --preview-card-bg: #141414;
+  --grain-opacity: 0.028;
+  --cursor-big-bg: rgba(0, 255, 136, 0.15);
+  /* Layout (used by professional.css) */
+  --content-max: min(1120px, calc(100vw - 96px));
+  --radius-sm: 6px;
+  --shadow-soft: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f3ef;
+  --bg2: #eae9e4;
+  --bg3: #dedcd6;
+  --text: #141412;
+  --muted: #5c5b56;
+  --rule: rgba(0, 0, 0, 0.08);
+  --accent: #00c45f;
+  --accent-dim: rgba(0, 196, 95, 0.14);
+  --accent-glow: rgba(0, 196, 95, 0.08);
+  --curtain-bg: #f4f3ef;
+  --nav-scrolled-bg: rgba(255, 255, 255, 0.92);
+  --hero-glyph: #e4e3de;
+  --row-hover-bg: rgba(0, 0, 0, 0.045);
+  --outline-border: rgba(0, 0, 0, 0.18);
+  --btn-on-accent: #0a0a0a;
+  --tag-border: rgba(0, 0, 0, 0.12);
+  --tag-hover-border: rgba(0, 196, 95, 0.45);
+  --preview-card-bg: #ffffff;
+  --grain-opacity: 0.016;
+  --cursor-big-bg: rgba(0, 196, 95, 0.2);
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] #cursor {
+  mix-blend-mode: normal;
+}
