@@ -36,6 +36,18 @@ body {
   cursor: none;
 }
 
+/* Override UA pointer on links/controls (same specificity as a:any-link) */
+a:any-link,
+button,
+input,
+textarea,
+select,
+summary,
+[role="button"],
+label[for] {
+  cursor: none;
+}
+
 /* scrollbar hidden */
 ::-webkit-scrollbar { display: none; }
 html { scrollbar-width: none; }
