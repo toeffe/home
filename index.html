@@ -386,7 +386,7 @@ section { position: relative; }
 /* Project rows */
 .work-row {
   display: grid;
-  grid-template-columns: 80px 1fr auto 200px 40px;
+  grid-template-columns: 80px 1fr auto 40px;
   align-items: center;
   gap: 24px;
   padding: 28px 48px;
@@ -425,6 +425,15 @@ section { position: relative; }
   font-size: 0.72rem;
   color: var(--muted);
   letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.work-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: min(420px, 46vw);
 }
 
 .work-tags {
@@ -718,8 +727,7 @@ footer {
     grid-template-columns: 50px 1fr 40px;
     grid-template-rows: auto auto;
   }
-  .work-desc { display: none; }
-  .work-tags { display: none; }
+  .work-meta { display: none; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
   #about, #contact { padding: 80px 24px; }
   .work-row { padding: 22px 24px; }
@@ -801,12 +809,14 @@ footer {
       data-bullets="⚡Regex caching|🔤 Embedded EasyOCR — zero system deps|🌍 Native Scandinavian character support|🛡️ Production-ready with retry + health checks">
       <span class="work-num">01 —</span>
       <span class="work-name">THE ARCHIVE</span>
-      <span class="work-desc">(BOUGHT FOR PRODUCTION)    Automated PDF intelligence pipeline</span>
-      <div class="work-tags">
-        <span class="tag">Python</span>
-        <span class="tag">OCR</span>
-        <span class="tag">Automation</span>
-        <span class="tag">Multi-threaded</span>
+      <div class="work-meta">
+        <span class="work-desc">(BOUGHT FOR PRODUCTION)    Automated PDF intelligence pipeline</span>
+        <div class="work-tags">
+          <span class="tag">Python</span>
+          <span class="tag">OCR</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Multi-threaded</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
@@ -817,12 +827,14 @@ footer {
       data-bullets="🗺️ Procedurally generated maps|🏰 8 tower types unlocking by wave|👾 Flying, armored, regenerating, boss enemies|💰 Stronger foes drop more gold |🌍 Player ranking system">
       <span class="work-num">02 —</span>
       <span class="work-name">ARDO DEFENSE</span>
-      <span class="work-desc">Isometric browser tower defense</span>
-      <div class="work-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">Canvas</span>
-        <span class="tag">Procedural</span>
-        <span class="tag">Game</span>
+      <div class="work-meta">
+        <span class="work-desc">Isometric browser tower defense</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Canvas</span>
+          <span class="tag">Procedural</span>
+          <span class="tag">Game</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
@@ -833,12 +845,14 @@ footer {
       data-bullets="⚔️ Combat with dash mechanics|🌋 5 Different biomes|✨ Buffs and skills to help you survive |🎲 Random generated levels">
       <span class="work-num">03 —</span>
       <span class="work-name">DUNGEON</span>
-      <span class="work-desc">Roguelite dungeon crawler</span>
-      <div class="work-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">Canvas</span>
-        <span class="tag">Roguelite</span>
-        <span class="tag">Game</span>
+      <div class="work-meta">
+        <span class="work-desc">Roguelite dungeon crawler</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Canvas</span>
+          <span class="tag">Roguelite</span>
+          <span class="tag">Game</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
@@ -849,12 +863,14 @@ footer {
       data-bullets="🎙️ Real-time ASR + TTS in 23 languages|🧠 Graphiti 3-layer hybrid memory architecture |📦 Ollama for local LLM inference |🔊 Voice cloning from audio samples |🌐 Customizable personality |🗺️ Humanizing effects">
       <span class="work-num">04 —</span>
       <span class="work-name">CHIPPY AI</span>
-      <span class="work-desc">AI assistant with &amp; voice cloning and local LLM inference</span>
-      <div class="work-tags">
-        <span class="tag">Python</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">Ollama</span>
-        <span class="tag">VTube Studio</span>
+      <div class="work-meta">
+        <span class="work-desc">AI assistant with &amp; voice cloning and local LLM inference</span>
+        <div class="work-tags">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Ollama</span>
+          <span class="tag">VTube Studio</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
@@ -865,12 +881,14 @@ footer {
       data-bullets="📦 Real CSV-driven item database|🔍 Live search & filter interface|🚀 Deployed via GitHub Actions|🌐 Fully static — no backend needed |🔗 Live player tracker">
       <span class="work-num">05 —</span>
       <span class="work-name">MC WAREHOUSE</span>
-      <span class="work-desc">Inventory management as a living webpage</span>
-      <div class="work-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">CSS</span>
-        <span class="tag">HTML</span>
-        <span class="tag">GitHub Pages</span>
+      <div class="work-meta">
+        <span class="work-desc">Inventory management as a living webpage</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">CSS</span>
+          <span class="tag">HTML</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
@@ -881,12 +899,14 @@ footer {
       data-bullets="🌐 A browser-based incremental |🔗 idle game about controlling a hose, spawning driplets |🚀 Prestige system |🌍 Player ranking system">
       <span class="work-num">06 —</span>
       <span class="work-name">VISCOCITY</span>
-      <span class="work-desc">Idle game about controlling a hose</span>
-      <div class="work-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">Canvas</span>
-        <span class="tag">IdleGame</span>
-        <span class="tag">Game</span>
+      <div class="work-meta">
+        <span class="work-desc">Idle game about controlling a hose</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Canvas</span>
+          <span class="tag">IdleGame</span>
+          <span class="tag">Game</span>
+        </div>
       </div>
       <span class="work-arrow">→</span>
     </a>
