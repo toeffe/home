@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFFE — News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+<script>
+(function () {
+  var k = 'toeffe-theme';
+  var t;
+  var params = new URLSearchParams(window.location.search);
+  var urlT = params.get('theme');
+  if (urlT === 'light' || urlT === 'dark') {
+    t = urlT;
+    try { localStorage.setItem(k, t); } catch (e) {}
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.delete('theme');
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e2) {}
+  } else {
+    var s = null;
+    try { s = localStorage.getItem(k); } catch (e) {}
+    if (s === 'light' || s === 'dark') {
+      t = s;
+    } else {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+  }
+  document.documentElement.dataset.theme = t;
+  document.documentElement.style.colorScheme = t === 'light' ? 'light' : 'dark';
+})();
+</script>
+
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="professional.css">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* grain */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+  z-index: 9000;
+}
+
+/* curtain */
+#curtain {
+  position: fixed; inset: 0;
+  background: var(--curtain-bg);
+  z-index: 8000;
+  transform-origin: top;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+}
+#curtain.lifted { transform: translateY(-100%); }
+
+/* nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px;
+  transition: border-bottom 0.3s, background 0.3s;
+}
+nav.scrolled {
+  border-bottom: 1px solid var(--rule);
+  background: var(--nav-scrolled-bg);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+  letter-spacing: 0.05em; color: var(--text); text-decoration: none;
+}
+.nav-logo span { color: var(--accent); animation: blink 1.2s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::before {
+  content: '▸'; color: var(--accent); position: absolute;
+  left: -14px; opacity: 0; transition: opacity 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a.active::before { opacity: 1; }
+
+.nav-end { display: flex; align-items: center; gap: 40px; }
+.theme-toggle {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  background: transparent; border: none; padding: 4px 0; transition: color 0.3s;
+}
+.theme-toggle:hover { color: var(--accent); }
+
+/* page header */
+.page-header {
+  padding: 160px 48px 60px;
+  border-bottom: 1px solid var(--rule);
+}
+.page-eyebrow {
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+  opacity: 0; transform: translateY(16px);
+  animation: slideUp 0.6s 0.9s ease forwards;
+}
+.page-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.88; letter-spacing: -0.03em;
+  color: var(--text);
+  clip-path: inset(0 100% 0 0);
+  animation: clipReveal 0.8s 1s cubic-bezier(0.76,0,0.24,1) forwards;
+}
+.page-title span { color: var(--accent); }
+@keyframes clipReveal { to { clip-path: inset(0 0% 0 0); } }
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+/* filter bar */
+.filter-bar {
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(16px);
+  animation: slideUp 0.6s 1.4s ease forwards;
+}
+.filter-label {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); background: transparent;
+  border: 1px solid var(--rule); padding: 6px 14px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.filter-btn:hover { color: var(--text); border-color: var(--muted); }
+.filter-btn.active { color: var(--accent); border-color: var(--accent); }
+
+.refresh-btn {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); background: transparent; border: none; padding: 6px 0;
+  transition: color 0.2s;
+}
+.refresh-btn:hover { color: var(--accent); }
+
+/* feed sections */
+.feeds-container { padding: 0 0 80px; }
+
+.feed-section {
+  border-bottom: 1px solid var(--rule);
+  padding: 48px 0;
+}
+.feed-section:last-child { border-bottom: none; }
+
+.feed-section-header {
+  display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;
+}
+.feed-source-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: 0.06em; color: var(--text);
+}
+.feed-tag {
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 10px; border: 1px solid;
+  transition: none;
+}
+.feed-tag.accent  { color: var(--accent);  border-color: var(--accent); }
+.feed-tag.blue    { color: #5b9bd5;        border-color: #5b9bd5; }
+.feed-tag.green   { color: #6abf69;        border-color: #6abf69; }
+.feed-tag.red     { color: #e06c75;        border-color: #e06c75; }
+.feed-tag.muted   { color: var(--muted);   border-color: var(--rule); }
+
+.feed-status {
+  font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); margin-left: auto;
+}
+.feed-status.error { color: #e06c75; }
+
+/* article rows */
+.article-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.article-row:hover { background: var(--row-hover-bg); }
+
+.article-index {
+  font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem;
+  color: var(--accent); letter-spacing: 0.1em; white-space: nowrap;
+}
+.article-body { min-width: 0; }
+.article-title {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  letter-spacing: -0.01em; color: var(--text);
+  transition: color 0.25s;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.article-row:hover .article-title { color: var(--accent); }
+.article-meta {
+  font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted);
+  margin-top: 3px;
+}
+.article-arrow {
+  font-size: 1rem; color: var(--muted);
+  transition: transform 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+.article-row:hover .article-arrow { transform: translateX(5px); color: var(--accent); }
+
+/* skeleton loader */
+.skeleton-row {
+  display: grid; grid-template-columns: 60px 1fr auto;
+  align-items: center; gap: 20px; padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+.skel {
+  background: var(--rule);
+  border-radius: 2px;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+/* empty/error state */
+.feed-empty {
+  padding: 28px 0;
+  font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em;
+  border-top: 1px solid var(--rule);
+}
+
+/* footer */
+footer {
+  border-top: 1px solid var(--rule); padding: 28px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--muted); text-transform: uppercase;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .nav-end { gap: 20px; }
+  .nav-links { gap: 20px; }
+  .page-header { padding: 120px 24px 40px; }
+  .filter-bar, .feeds-container { padding-left: 0; padding-right: 0; }
+  .article-row { grid-template-columns: 40px 1fr 24px; gap: 12px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+}
+</style>
+
+<!-- Load your feeds config -->
+<script src="feeds.js"></script>
+</head>
+<body>
+
+<div id="curtain"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <button type="button" class="nav-backdrop" id="navBackdrop" aria-label="Close menu" tabindex="-1"></button>
+  <div class="layout-container nav-inner">
+    <a href="index.html#hero" class="nav-logo">TOEFFE<span>_</span></a>
+    <button type="button" class="nav-menu-btn" id="navMenuBtn" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu">
+      <span class="nav-menu-label nav-menu-label-open">Menu</span>
+      <span class="nav-menu-label nav-menu-label-close">Close</span>
+    </button>
+    <div class="nav-end" id="primaryNav">
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="news.html" class="active">News</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" aria-pressed="false"></button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="layout-container">
+    <p class="page-eyebrow">// live feed aggregator</p>
+    <h1 class="page-title">NEWS<span>.</span></h1>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <div class="layout-container" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-inline:0;">
+    <span class="filter-label">Filter —</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <!-- tag filters injected by JS -->
+    <button class="refresh-btn" id="refreshBtn">↺ Refresh</button>
+  </div>
+</div>
+
+<!-- FEEDS -->
+<main class="feeds-container" id="feedsContainer">
+  <div class="layout-container" id="feedsInner">
+    <!-- injected by JS -->
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="layout-container footer-inner">
+    <span>TOEFFE — <span id="footerYear"></span></span>
+    <span id="footerUpdated">fetching feeds...</span>
+  </div>
+</footer>
+
+<script>
+// ─── curtain ───
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('curtain').classList.add('lifted'), 100);
+});
+
+// ─── nav scroll ───
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ─── theme toggle ───
+const themeKey = 'toeffe-theme';
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  document.documentElement.style.colorScheme = t === 'light' ? 'light' : 'dark';
+  document.getElementById('themeToggle').textContent = t === 'light' ? '[ dark ]' : '[ light ]';
+  try { localStorage.setItem(themeKey, t); } catch(e) {}
+}
+document.getElementById('themeToggle').addEventListener('click', () => {
+  applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+});
+applyTheme(document.documentElement.dataset.theme || 'dark');
+
+// ─── footer year ───
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+// ─── helpers ───
+function timeAgo(dateStr) {
+  if (!dateStr) return '';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1)  return 'just now';
+  if (m < 60) return m + 'm ago';
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + 'h ago';
+  const d = Math.floor(h / 24);
+  return d + 'd ago';
+}
+
+function stripHtml(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+}
+
+// ─── skeleton ───
+function renderSkeleton(container, count) {
+  container.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    container.innerHTML += `
+      <div class="skeleton-row">
+        <div class="skel" style="width:36px;height:14px;"></div>
+        <div>
+          <div class="skel" style="height:14px;width:70%;margin-bottom:6px;"></div>
+          <div class="skel" style="height:10px;width:30%;"></div>
+        </div>
+        <div class="skel" style="width:12px;height:14px;"></div>
+      </div>`;
+  }
+}
+
+// ─── fetch one feed ───
+async function fetchFeed(feed) {
+  const url = FEED_SETTINGS.proxyUrl + encodeURIComponent(feed.url);
+  const res  = await fetch(url);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const data = await res.json();
+  if (data.status !== 'ok') throw new Error(data.message || 'Feed error');
+  return data.items.slice(0, FEED_SETTINGS.itemsPerFeed);
+}
+
+// ─── render articles ───
+function renderArticles(container, items, statusEl) {
+  if (!items || items.length === 0) {
+    container.innerHTML = '<div class="feed-empty">// no items found</div>';
+    return;
+  }
+  container.innerHTML = items.map((item, i) => {
+    const title = stripHtml(item.title || 'Untitled');
+    const ago   = timeAgo(item.pubDate);
+    const index = String(i + 1).padStart(2, '0') + ' —';
+    return `
+      <a class="article-row" href="${item.link || '#'}" target="_blank" rel="noopener">
+        <span class="article-index">${index}</span>
+        <div class="article-body">
+          <div class="article-title">${title}</div>
+          <div class="article-meta">${ago}</div>
+        </div>
+        <span class="article-arrow">→</span>
+      </a>`;
+  }).join('');
+  statusEl.textContent = items.length + ' items';
+  statusEl.classList.remove('error');
+}
+
+// ─── build filter tags ───
+function buildFilters() {
+  const bar  = document.getElementById('filterBar');
+  const barInner = bar.querySelector('.layout-container') || bar;
+  const tags = [...new Set(FEEDS.map(f => f.tag).filter(Boolean))];
+  const ref  = document.getElementById('refreshBtn');
+  tags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = tag;
+    btn.textContent = tag;
+    barInner.insertBefore(btn, ref);
+  });
+
+  barInner.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    barInner.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.feed-section').forEach(sec => {
+      sec.style.display = (f === 'all' || sec.dataset.tag === f) ? '' : 'none';
+    });
+  });
+}
+
+// ─── main load ───
+async function loadAllFeeds() {
+  const container = document.getElementById('feedsInner');
+  container.innerHTML = '';
+  buildFilters();
+
+  const sections = [];
+
+  FEEDS.forEach(feed => {
+    const sec = document.createElement('div');
+    sec.className = 'feed-section';
+    sec.dataset.tag = feed.tag || '';
+
+    const colorClass = feed.color || 'muted';
+    sec.innerHTML = `
+      <div class="feed-section-header">
+        <span class="feed-source-name">${feed.name}</span>
+        ${feed.tag ? `<span class="feed-tag ${colorClass}">${feed.tag}</span>` : ''}
+        <span class="feed-status" id="status-${feed.name.replace(/\s+/g,'-')}">loading...</span>
+      </div>
+      <div class="articles-list" id="articles-${feed.name.replace(/\s+/g,'-')}"></div>`;
+
+    container.appendChild(sec);
+    sections.push({ feed, sec });
+  });
+
+  const fetches = sections.map(async ({ feed, sec }) => {
+    const id      = feed.name.replace(/\s+/g, '-');
+    const listEl  = sec.querySelector(`#articles-${id}`);
+    const statEl  = sec.querySelector(`#status-${id}`);
+    renderSkeleton(listEl, 4);
+    try {
+      const items = await fetchFeed(feed);
+      renderArticles(listEl, items, statEl);
+    } catch (err) {
+      listEl.innerHTML = '<div class="feed-empty">// could not load feed — check the URL in feeds.js</div>';
+      statEl.textContent = 'error';
+      statEl.classList.add('error');
+    }
+  });
+
+  await Promise.allSettled(fetches);
+  document.getElementById('footerUpdated').textContent =
+    'last updated ' + new Date().toLocaleTimeString();
+}
+
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  const filterRoot = document.getElementById('filterBar').querySelector('.layout-container') || document.getElementById('filterBar');
+  filterRoot.querySelectorAll('.filter-btn[data-filter]').forEach((b, i) => {
+    if (i > 0 && b.dataset.filter !== 'all') b.remove();
+  });
+  filterRoot.querySelector('.filter-btn').classList.add('active');
+  loadAllFeeds();
+});
+
+(function () {
+  const rootNav = document.getElementById('nav');
+  const menuBtn = document.getElementById('navMenuBtn');
+  const backdrop = document.getElementById('navBackdrop');
+  const panel = document.getElementById('primaryNav');
+  if (!rootNav || !menuBtn || !panel) return;
+
+  const mqMobile = window.matchMedia('(max-width: 768px)');
+
+  function setNavOpen(open) {
+    rootNav.classList.toggle('nav-open', open);
+    document.body.classList.toggle('nav-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (backdrop) backdrop.tabIndex = open ? 0 : -1;
+  }
+
+  function closeNav() {
+    setNavOpen(false);
+  }
+
+  menuBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (!mqMobile.matches) return;
+    setNavOpen(!rootNav.classList.contains('nav-open'));
+  });
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeNav);
+  }
+
+  panel.addEventListener('click', function (e) {
+    const link = e.target.closest('.nav-links a');
+    if (link && mqMobile.matches) closeNav();
+  });
+
+  window.addEventListener('resize', function () {
+    if (!mqMobile.matches) closeNav();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+  });
+})();
+
+loadAllFeeds();
+</script>
+
+</body>
+</html>
