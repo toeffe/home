@@ -4,10 +4,15 @@
 
   function isThemePageFilename(name) {
     const f = (name || '').toLowerCase();
-    return f === 'index.html' || f === 'music.html';
+    return (
+      f === 'index.html' ||
+      f === 'music.html' ||
+      f === 'news.html' ||
+      f === 'freegames.html'
+    );
   }
 
-  /** Carry theme across index ↔ music (needed when localStorage is per-file, e.g. file://). */
+  /** Carry theme across static pages (needed when localStorage is per-file, e.g. file://). */
   function patchInternalLinks() {
     const theme = root.dataset.theme;
     if (theme !== 'light' && theme !== 'dark') return;

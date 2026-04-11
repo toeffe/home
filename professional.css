@@ -108,6 +108,22 @@ nav {
   letter-spacing: 0.06em;
 }
 
+/* Sentence-case labels from theme.js ("Bright page" / "Dark page"); keep on one line in tight nav. */
+.theme-toggle {
+  text-transform: none;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+}
+
 /* Narrow tablet / small laptop: keep row nav but tighter */
 @media (max-width: 900px) and (min-width: 769px) {
   .nav-inner.layout-container {
@@ -592,5 +608,88 @@ footer {
 
   .scroll-dot {
     animation: none !important;
+  }
+}
+
+/* ─── Free games page ─── */
+.status-strip {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+#filters {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#status-bar {
+  padding: 0;
+}
+
+.status-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 14px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#games-section {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 120px;
+}
+
+.skel-row {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.game-row {
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  margin-inline: 0;
+  padding: 28px 48px;
+}
+
+.game-row:hover {
+  margin-inline: 0;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.game-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  letter-spacing: -0.02em;
+}
+
+.game-platform,
+.game-worth,
+.game-end {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.game-meta {
+  max-width: min(360px, 42vw);
+}
+
+@media (max-width: 900px) {
+  .game-row,
+  .game-row:hover {
+    padding: 22px 24px;
+  }
+
+  .skel-row {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  #games-section {
+    padding-bottom: 80px;
   }
 }

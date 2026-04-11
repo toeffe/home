@@ -109,12 +109,6 @@ nav.scrolled {
 .nav-links a.active::before { opacity: 1; }
 
 .nav-end { display: flex; align-items: center; gap: 40px; }
-.theme-toggle {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-  background: transparent; border: none; padding: 4px 0; transition: color 0.3s;
-}
-.theme-toggle:hover { color: var(--accent); }
 
 /* page header */
 .page-header {
@@ -308,6 +302,7 @@ footer {
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
         <li><a href="news.html" class="active">News</a></li>
+        <li><a href="freegames.html">Free Games</a></li>
       </ul>
       <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" aria-pressed="false"></button>
     </div>
@@ -357,19 +352,6 @@ window.addEventListener('load', () => {
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
-
-// ─── theme toggle ───
-const themeKey = 'toeffe-theme';
-function applyTheme(t) {
-  document.documentElement.dataset.theme = t;
-  document.documentElement.style.colorScheme = t === 'light' ? 'light' : 'dark';
-  document.getElementById('themeToggle').textContent = t === 'light' ? '[ dark ]' : '[ light ]';
-  try { localStorage.setItem(themeKey, t); } catch(e) {}
-}
-document.getElementById('themeToggle').addEventListener('click', () => {
-  applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
-});
-applyTheme(document.documentElement.dataset.theme || 'dark');
 
 // ─── footer year ───
 document.getElementById('footerYear').textContent = new Date().getFullYear();
@@ -571,6 +553,6 @@ document.getElementById('refreshBtn').addEventListener('click', () => {
 
 loadAllFeeds();
 </script>
-
+<script src="theme.js"></script>
 </body>
 </html>
