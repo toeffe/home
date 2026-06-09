@@ -715,6 +715,8 @@ footer {
 .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.24s; }
 .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.32s; }
 .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.48s; }
+.reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay: 0.56s; }
+.reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay: 0.64s; }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
@@ -749,6 +751,7 @@ footer {
 <div class="preview-card" id="previewCard">
   <span class="preview-card-title" id="previewTitle"></span>
   <ul id="previewList"></ul>
+  <a class="preview-card-link" id="previewGithub" href="#" target="_blank" rel="noopener" hidden>GitHub →</a>
 </div>
 
 <!-- ─── NAV ─── -->
@@ -800,7 +803,7 @@ footer {
 <section id="work">
   <div class="layout-container section-header reveal">
     <span class="section-label">Selected Work</span>
-    <span class="section-count">06 projects</span>
+    <span class="section-count">08 projects</span>
   </div>
 
   <div class="layout-container reveal-stagger" id="workRows">
@@ -912,6 +915,44 @@ footer {
       </div>
       <span class="work-arrow">→</span>
     </a>
+
+    <!-- 07 -->
+    <a class="work-row" href="https://tv.toeffe.uk/" target="_blank" rel="noopener"
+      data-title="T-TV"
+      data-github="https://github.com/toeffe/IpTV"
+      data-bullets="📺 M3U URL + paste import|⭐ Favorites &amp; broken-stream filter|▶️ Live HLS playback|🌓 Dark/light theme">
+      <span class="work-num">07 —</span>
+      <span class="work-name">T-TV</span>
+      <div class="work-meta">
+        <span class="work-desc">Browser IPTV player for M3U playlists</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML</span>
+          <span class="tag">M3U</span>
+          <span class="tag">Streaming</span>
+        </div>
+      </div>
+      <span class="work-arrow">→</span>
+    </a>
+
+    <!-- 08 -->
+    <a class="work-row" href="https://gs128.toeffe.uk/" target="_blank" rel="noopener"
+      data-title="GS1-128"
+      data-github="https://github.com/toeffe/GS1-128"
+      data-bullets="🏷️ Up to 3 GS1-128 barcodes per label|📦 SSCC serial tracking|📷 Photo barcode scan|🖨️ Zebra print layouts">
+      <span class="work-num">08 —</span>
+      <span class="work-name">GS1-128</span>
+      <div class="work-meta">
+        <span class="work-desc">Barcode generator &amp; verifier for food production labels</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">GS1</span>
+          <span class="tag">Barcode</span>
+          <span class="tag">Print</span>
+        </div>
+      </div>
+      <span class="work-arrow">→</span>
+    </a>
   </div>
 </section>
 
@@ -921,7 +962,7 @@ footer {
     <span class="skill-pill">Python</span>
     <span class="skill-pill">JavaScript</span>
     <span class="skill-pill">FastAPI</span>
-    <span class="skill-pill">Ollama</span>
+    <span class="skill-pill">Large Language Models</span>
     <span class="skill-pill">Canvas</span>
     <span class="skill-pill">Procedural Gen</span>
     <span class="skill-pill">GitHub Actions</span>
@@ -929,7 +970,6 @@ footer {
     <span class="skill-pill">Graphiti Memory</span>
     <span class="skill-pill">VTube Studio</span>
     <span class="skill-pill">Multi-threading</span>
-    <span class="skill-pill">OCR-Adobe+AI</span>
     <span class="skill-pill">Game Development</span>
     <span class="skill-pill">AI Integration</span>
   </div>
@@ -1134,6 +1174,7 @@ document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObs.ob
 const previewCard = document.getElementById('previewCard');
 const previewTitle = document.getElementById('previewTitle');
 const previewList  = document.getElementById('previewList');
+const previewGithub = document.getElementById('previewGithub');
 
 let cardX = 0, cardY = 0, targetCardX = 0, targetCardY = 0;
 
@@ -1143,10 +1184,20 @@ if (previewCard && previewTitle && previewList) {
       previewTitle.textContent = row.dataset.title;
       previewList.innerHTML = row.dataset.bullets.split('|')
         .map(b => `<li>${b}</li>`).join('');
+      if (previewGithub) {
+        const gh = row.dataset.github;
+        if (gh) {
+          previewGithub.href = gh;
+          previewGithub.hidden = false;
+        } else {
+          previewGithub.hidden = true;
+        }
+      }
       previewCard.classList.add('visible');
     });
     row.addEventListener('mouseleave', () => {
       previewCard.classList.remove('visible');
+      if (previewGithub) previewGithub.hidden = true;
     });
   });
 
@@ -1176,7 +1227,7 @@ const termLines = [
   { type: 'blank' },
   { type: 'cmd',  text: '$ ls ./skills' },
   { type: 'out',  text: 'python  javascript  game-dev' },
-  { type: 'out',  text: 'ai-systems  automation  ocr' },
+  { type: 'out',  text: 'ai-systems  automation' },
   { type: 'blank' },
   { type: 'cmd',  text: '$ cat ./bio.txt' },
   { type: 'out',  text: 'Builder of things that solve actual problems.' },
