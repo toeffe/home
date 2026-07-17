@@ -709,14 +709,22 @@ footer {
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.08s; }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.16s; }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.24s; }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.32s; }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.48s; }
-.reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay: 0.56s; }
-.reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay: 0.64s; }
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.72s;
+}
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.48s; }
+.reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.56s; }
+.reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.64s; }
+.reveal-stagger.visible > *:nth-child(9) { transition-delay: 0.72s; }
+.reveal-stagger.visible > *:nth-child(10) { transition-delay: 0.80s; }
+.reveal-stagger.visible > *:nth-child(11) { transition-delay: 0.88s; }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
@@ -803,7 +811,7 @@ footer {
 <section id="work">
   <div class="layout-container section-header reveal">
     <span class="section-label">Selected Work</span>
-    <span class="section-count">08 projects</span>
+    <span class="section-count">11 projects</span>
   </div>
 
   <div class="layout-container reveal-stagger" id="workRows">
@@ -949,6 +957,63 @@ footer {
           <span class="tag">GS1</span>
           <span class="tag">Barcode</span>
           <span class="tag">Print</span>
+        </div>
+      </div>
+      <span class="work-arrow">→</span>
+    </a>
+
+    <!-- 09 -->
+    <a class="work-row" href="https://tetris.toeffe.uk/" target="_blank" rel="noopener"
+      data-title="VIBETRISIMO"
+      data-github="https://github.com/toeffe/tetris_game"
+      data-bullets="🎮 Host &amp; join with room codes|👥 Up to 8 players in battle|🧱 Hold / keep piece|🌐 Danish &amp; English UI">
+      <span class="work-num">09 —</span>
+      <span class="work-name">VIBETRISIMO</span>
+      <div class="work-meta">
+        <span class="work-desc">Multiplayer Tetris battle in the browser</span>
+        <div class="work-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">PeerJS</span>
+          <span class="tag">Multiplayer</span>
+          <span class="tag">Game</span>
+        </div>
+      </div>
+      <span class="work-arrow">→</span>
+    </a>
+
+    <!-- 10 -->
+    <a class="work-row" href="https://quest.toeffe.uk/" target="_blank" rel="noopener"
+      data-title="QUEST TOOL"
+      data-github="https://github.com/toeffe/Quest-Tool"
+      data-bullets="📜 Quest authoring &amp; chains|🗺️ Story Flow visual graph|📦 One-click datapack ZIP export|⚔️ Jobs &amp; passive skills|🌐 Danish &amp; English UI">
+      <span class="work-num">10 —</span>
+      <span class="work-name">QUEST TOOL</span>
+      <div class="work-meta">
+        <span class="work-desc">Browser Minecraft quest &amp; datapack maker</span>
+        <div class="work-tags">
+          <span class="tag">React</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Minecraft</span>
+        </div>
+      </div>
+      <span class="work-arrow">→</span>
+    </a>
+
+    <!-- 11 -->
+    <a class="work-row" href="https://github.com/toeffe/auto-trade" target="_blank" rel="noopener"
+      data-title="AUTO TRADE"
+      data-github="https://github.com/toeffe/auto-trade"
+      data-bullets="⌨️ Press V to cycle trade modes|🛒 Sell &amp; buy item pools|🔁 Sell, buy, or both modes|👤 Proximity trade without GUI">
+      <span class="work-num">11 —</span>
+      <span class="work-name">AUTO TRADE</span>
+      <div class="work-meta">
+        <span class="work-desc">Fabric mod for automatic villager trading</span>
+        <div class="work-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Fabric</span>
+          <span class="tag">Minecraft</span>
+          <span class="tag">Mod</span>
         </div>
       </div>
       <span class="work-arrow">→</span>
